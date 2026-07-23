@@ -1,8 +1,13 @@
 import React from 'react';
-import { Calculator, Scale, History, CreditCard } from 'lucide-react';
+import { Home, Calculator, Scale, History, CreditCard } from 'lucide-react';
 
 export default function Navigation({ activeTab, onTabChange, pendingCount = 0, historyCount = 0 }) {
   const tabs = [
+    {
+      id: 'landing',
+      label: 'Beranda',
+      icon: Home
+    },
     {
       id: 'calculator',
       label: 'Kalkulator',
@@ -70,7 +75,7 @@ export default function Navigation({ activeTab, onTabChange, pendingCount = 0, h
 
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-slate-800/90 backdrop-blur-xl px-2 py-2 shadow-2xl">
-        <div className="grid grid-cols-4 gap-1 max-w-md mx-auto">
+        <div className="grid grid-cols-5 gap-0.5 max-w-md mx-auto">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -86,9 +91,9 @@ export default function Navigation({ activeTab, onTabChange, pendingCount = 0, h
                 }`}
               >
                 <Icon className="w-4 h-4 mb-0.5" />
-                <span className="text-[10px] leading-tight">{tab.label}</span>
+                <span className="text-[9px] sm:text-[10px] leading-tight truncate px-0.5">{tab.label}</span>
                 {tab.badge && !isActive && (
-                  <span className="absolute top-1 right-3 w-2 h-2 rounded-full bg-amber-400" />
+                  <span className="absolute top-1 right-2 w-2 h-2 rounded-full bg-amber-400" />
                 )}
               </button>
             );

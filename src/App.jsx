@@ -6,6 +6,7 @@ import PaymentModal from './components/PaymentModal';
 import ExportModal from './components/ExportModal';
 import SpinWheelModal from './components/SpinWheelModal';
 
+import LandingPage from './pages/LandingPage';
 import CalculatorPage from './pages/CalculatorPage';
 import SettlementPage from './pages/SettlementPage';
 import HistoryPage from './pages/HistoryPage';
@@ -24,7 +25,10 @@ import { calculateBill } from './utils/calculator';
 import { decodeUrlToState } from './utils/urlSharer';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('calculator');
+  const [activeTab, setActiveTab] = useState(() => {
+    const fromUrl = decodeUrlToState();
+    return fromUrl ? 'calculator' : 'landing';
+  });
   const [appState, setAppState] = useState(() => {
     const fromUrl = decodeUrlToState();
     return fromUrl || loadActiveState();
@@ -142,6 +146,13 @@ export default function App() {
       {/* Main Page Body */}
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:px-6">
         
+        {activeTab === 'landing' && (
+          <LandingPage
+            onGoToCalculator={() => setActiveTab('calculator')}
+            onOpenWheel={() => setIsWheelModalOpen(true)}
+          />
+        )}
+
         {activeTab === 'calculator' && (
           <CalculatorPage
             appState={appState}
