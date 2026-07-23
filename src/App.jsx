@@ -31,7 +31,22 @@ export default function App() {
   });
   const [appState, setAppState] = useState(() => {
     const fromUrl = decodeUrlToState();
-    return fromUrl || loadActiveState();
+    if (fromUrl) return fromUrl;
+    // Return fresh state on new visit/open
+    return {
+      ...DEFAULT_BILL_STATE,
+      people: [
+        {
+          id: 'p1',
+          name: 'Teman 1',
+          color: '#10b981',
+          items: [{ id: 'i1', name: '', price: 0, qty: 1 }]
+        }
+      ],
+      sharedItems: [],
+      receiptTarget: 0,
+      paidStatus: {}
+    };
   });
   const [historyList, setHistoryList] = useState(() => loadBillHistory());
   
