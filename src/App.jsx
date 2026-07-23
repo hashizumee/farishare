@@ -148,6 +148,7 @@ export default function App() {
         onReset={handleReset}
         isSaved={isSavedNotice}
         onOpenWheel={() => setIsWheelModalOpen(true)}
+        onGoHome={() => setActiveTab('landing')}
       />
 
       {/* Navigation Tab Bar (Top for desktop, bottom for mobile) */}

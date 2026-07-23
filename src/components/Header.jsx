@@ -1,15 +1,19 @@
 import React from 'react';
 import { RotateCcw, ShieldCheck, Sparkles } from 'lucide-react';
 
-export default function Header({ onReset, isSaved, onOpenWheel }) {
+export default function Header({ onReset, isSaved, onOpenWheel, onGoHome }) {
   return (
     <header className="sticky top-0 z-30 bg-slate-950/90 border-b border-slate-800/80 backdrop-blur-xl transition-all">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         
-        {/* Brand & Mark */}
-        <div className="flex items-center gap-3">
+        {/* Brand & Mark Button */}
+        <button
+          type="button"
+          onClick={onGoHome}
+          className="flex items-center gap-3 text-left group transition-transform active:scale-95 focus:outline-none"
+        >
           {/* Bespoke Logo Icon */}
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 shadow-md group transition-transform hover:scale-105">
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 shadow-md group-hover:scale-105 transition-transform">
             <div className="w-4 h-4 rounded-md bg-gradient-to-tr from-emerald-400 to-teal-300 transform rotate-45 shadow-sm shadow-emerald-500/50" />
             <div className="absolute inset-0 rounded-xl bg-emerald-500/10 blur-sm pointer-events-none" />
           </div>
@@ -27,7 +31,7 @@ export default function Header({ onReset, isSaved, onOpenWheel }) {
               Kalkulator Patungan &amp; Tax Presisi
             </p>
           </div>
-        </div>
+        </button>
 
         {/* Header Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
