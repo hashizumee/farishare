@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Header from './components/Header';
-import Navigation from './components/Navigation';
+import Sidebar from './components/Sidebar';
+import MobileTopHeader from './components/MobileTopHeader';
 import StickyReceiptBar from './components/StickyReceiptBar';
 import PaymentModal from './components/PaymentModal';
 import ExportModal from './components/ExportModal';
@@ -29,10 +29,10 @@ export default function App() {
     const fromUrl = decodeUrlToState();
     return fromUrl ? 'calculator' : 'landing';
   });
+
   const [appState, setAppState] = useState(() => {
     const fromUrl = decodeUrlToState();
     if (fromUrl) return fromUrl;
-    // Return fresh state on new visit/open
     return {
       ...DEFAULT_BILL_STATE,
       people: [
@@ -48,7 +48,9 @@ export default function App() {
       paidStatus: {}
     };
   });
+
   const [historyList, setHistoryList] = useState(() => loadBillHistory());
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
@@ -141,81 +143,90 @@ export default function App() {
   const pendingPeopleCount = (calculations.settlements || []).filter(s => !s.isPaid).length;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-slate-950">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col lg:flex-row font-sans selection:bg-emerald-500 selection:text-slate-950">
       
-      {/* Top Header */}
-      <Header
-        onReset={handleReset}
-        isSaved={isSavedNotice}
-        onOpenWheel={() => setIsWheelModalOpen(true)}
-        onGoHome={() => setActiveTab('landing')}
-      />
-
-      {/* Navigation Tab Bar (Top for desktop, bottom for mobile) */}
-      <Navigation
+      {/* Sidebar (Desktop Fixed Left & Mobile Slide-Over Drawer) */}
+      <Sidebar
         activeTab={activeTab}
         onTabChange={setActiveTab}
         pendingCount={pendingPeopleCount}
         historyCount={historyList.length}
+        onOpenWheel={() => setIsWheelModalOpen(true)}
+        onReset={handleReset}
+        isSaved={isSavedNotice}
+        isOpenMobile={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
 
-      {/* Main Page Body */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:px-6">
+      {/* Main Container Wrapper */}
+      <div className="flex-1 flex flex-col lg:pl-64 min-w-0">
         
-        {activeTab === 'landing' && (
-          <LandingPage
-            onGoToCalculator={() => setActiveTab('calculator')}
-            onOpenWheel={() => setIsWheelModalOpen(true)}
-          />
-        )}
+        {/* Mobile Top Navigation Bar */}
+        <MobileTopHeader
+          onOpenSidebar={() => setIsMobileSidebarOpen(true)}
+          onOpenWheel={() => setIsWheelModalOpen(true)}
+          onReset={handleReset}
+        />
 
-        {activeTab === 'calculator' && (
-          <CalculatorPage
-            appState={appState}
-            calculations={calculations}
-            onGlobalSettingsChange={handleGlobalSettingsChange}
-            onUpdatePeople={handleUpdatePeople}
-            onUpdateSharedItems={handleUpdateSharedItems}
-          />
-        )}
+        {/* Main Content Area */}
+        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:px-6">
+          
+          {activeTab === 'landing' && (
+            <LandingPage
+              onGoToCalculator={() => setActiveTab('calculator')}
+              onOpenWheel={() => setIsWheelModalOpen(true)}
+            />
+          )}
 
-        {activeTab === 'settlement' && (
-          <SettlementPage
-            appState={appState}
-            calculations={calculations}
-            onPayerChange={handlePayerChange}
-            onTogglePaidStatus={handleTogglePaidStatus}
-            onOpenExportModal={() => setIsExportModalOpen(true)}
-          />
-        )}
+          {activeTab === 'calculator' && (
+            <CalculatorPage
+              appState={appState}
+              calculations={calculations}
+              onGlobalSettingsChange={handleGlobalSettingsChange}
+              onUpdatePeople={handleUpdatePeople}
+              onUpdateSharedItems={handleUpdateSharedItems}
+            />
+          )}
 
-        {activeTab === 'history' && (
-          <HistoryPage
-            historyList={historyList}
-            onSaveCurrentBill={handleSaveCurrentBill}
-            onLoadBill={handleLoadBill}
-            onDeleteBill={handleDeleteBill}
-            currentGrandTotal={calculations.grandTotal}
-          />
-        )}
+          {activeTab === 'settlement' && (
+            <SettlementPage
+              appState={appState}
+              calculations={calculations}
+              onPayerChange={handlePayerChange}
+              onTogglePaidStatus={handleTogglePaidStatus}
+              onOpenExportModal={() => setIsExportModalOpen(true)}
+            />
+          )}
 
-        {activeTab === 'payment' && (
-          <PaymentProfilePage
-            paymentInfo={appState.paymentInfo}
-            onSavePaymentInfo={handleSavePaymentInfo}
-          />
-        )}
+          {activeTab === 'history' && (
+            <HistoryPage
+              historyList={historyList}
+              onSaveCurrentBill={handleSaveCurrentBill}
+              onLoadBill={handleLoadBill}
+              onDeleteBill={handleDeleteBill}
+              currentGrandTotal={calculations.grandTotal}
+            />
+          )}
 
-      </main>
+          {activeTab === 'payment' && (
+            <PaymentProfilePage
+              paymentInfo={appState.paymentInfo}
+              onSavePaymentInfo={handleSavePaymentInfo}
+            />
+          )}
 
-      {/* Bottom Sticky Receipt Bar */}
-      <StickyReceiptBar
-        calculatedTotal={calculations.grandTotal}
-        receiptTarget={appState.receiptTarget}
-        onReceiptTargetChange={handleReceiptTargetChange}
-        onOpenExportModal={() => setIsExportModalOpen(true)}
-        onOpenPaymentModal={() => setIsPaymentModalOpen(true)}
-      />
+        </main>
+
+        {/* Bottom Sticky Receipt Bar */}
+        <StickyReceiptBar
+          calculatedTotal={calculations.grandTotal}
+          receiptTarget={appState.receiptTarget}
+          onReceiptTargetChange={handleReceiptTargetChange}
+          onOpenExportModal={() => setIsExportModalOpen(true)}
+          onOpenPaymentModal={() => setIsPaymentModalOpen(true)}
+        />
+
+      </div>
 
       {/* Payment Info Modal */}
       <PaymentModal
