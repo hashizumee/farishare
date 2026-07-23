@@ -1,16 +1,100 @@
-# React + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+  # 🧾 FairShare — Hitung Patungan & Tax Calculator Presisi
 
-Currently, two official plugins are available:
+  **Hitung patungan makan bersama presisi kasir, adil, & tanpa drama recehan.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+  [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+  [![Vite](https://img.shields.io/badge/Vite-8.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+  [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+  [![License](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)](LICENSE)
 
-## React Compiler
+  [Demo Aplikasi](#) • [Fitur Utama](#-fitur-unggulan) • [Panduan Lokal](#-cara-menjalankan-di-lokal) • [Panduan Deploy](#-panduan-deploy)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+</div>
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 📌 Deskripsi Proyek
+
+**FairShare** adalah aplikasi web SaaS (Software as a Service) modern yang dirancang khusus untuk membantu kelompok pertemanan menghitung pembagian tagihan makanan di restoran (*split bill*) secara **presisi, transparan, dan adil**.
+
+Sering kali saat makan bersama, pembagian pajak restoran (PB1 10%), service charge, diskon promo resto, hingga menu yang dimakan bersama (*shared items*) dihitung secara asal-asalan. **FairShare** menyelesaikan masalah ini dengan mengkalkulasikan porsi harga pesanan masing-masing individu secara proporsional hingga satuan rupiah terkecil.
+
+---
+
+## ✨ Fitur Unggulan
+
+- ⚡ **Kalkulator Tax & Service Presisi**: Mengalokasikan Pajak Restoran PB1 (10%), Service Charge (5%-7%), Diskon Resto (Persen/Nominal), dan Tips Waiter secara adil berdasarkan porsi masing-masing.
+- 🤝 **Menu Patungan (Shared Dishes)**: Bagi makanan bersama (misal: *Pizza Large* atau *Appetizer*) ke beberapa orang spesifik.
+- 💳 **Matriks Pelunasan ("Siapa Bayar ke Siapa")**: Meminimalisir jumlah transaksi antar anggota. Cukup 1 orang penanggung jawab yang menalangi struk.
+- 📲 **Kartu Rekening Digital & Upload QRIS**: Pembuat tagihan dapat mengunggah gambar QRIS sendiri & menyediakan info BCA/GoPay/OVO dengan tombol *Salin Rekening* 1-klik.
+- 📄 **Format Teks WhatsApp & Shareable Web Link**: Ekspor ringkasan tagihan terformat siap kirim ke grup WA, atau bagikan via URL Hash (`#share=...`).
+- 🎲 **Roda Traktiran FairShare (Spin the Wheel Game)**: Gamifikasi roda putar interaktif 3D/SVG untuk memilih siapa yang menalangi atau membayar tip!
+- 👥 **Templat Cepat Grup Teman (Friend Group Presets)**: Simpan & muat daftar teman nongkrong/kantor dalam 1 klik.
+- 📊 **Arsip & Analisis Pengeluaran**: Simpan riwayat struk di `localStorage` dan pantau statistik patungan bulanan.
+
+---
+
+## 🛠️ Teknologi & Stack
+
+| Kategori | Teknologi |
+| :--- | :--- |
+| **Framework** | [React 19](https://react.dev/) + [Vite 8](https://vitejs.dev/) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) + Glassmorphism UI |
+| **Icon Set** | [Lucide React](https://lucide.dev/) |
+| **Animasi & Efek** | Canvas Confetti + Micro-animations |
+| **Penyimpanan & Share** | `localStorage` + URL Base64 Hash Sharer |
+
+---
+
+## 🚀 Cara Menjalankan di Lokal
+
+### Prasyarat
+- [Node.js](https://nodejs.org/) (versi 18 ke atas)
+- npm atau yarn
+
+### Langkah-langkah
+
+```bash
+# 1. Clone repository ini
+git clone https://github.com/hashizumee/farishare.git
+
+# 2. Masuk ke folder proyek
+cd farishare
+
+# 3. Install seluruh dependensi
+npm install
+
+# 4. Jalankan server pengembangan lokal
+npm run dev
+```
+
+Buka browser Anda dan akses `http://localhost:5174/`.
+
+---
+
+## 🌐 Panduan Deploy ke Publik
+
+Aplikasi ini sudah dilengkapi berkas konfigurasi `vercel.json` dan `netlify.toml` untuk mencegah error 404 SPA Routing.
+
+### Deploy ke Vercel (1-Klik)
+1. Hubungkan akun GitHub Anda ke [Vercel.com](https://vercel.com).
+2. Pilih repository `hashizumee/farishare`.
+3. Klik **Deploy**. (Vercel otomatis mendeteksi Vite).
+
+### Deploy ke Netlify
+1. Jalankan `npm run build`.
+2. Upload folder `dist/` ke dashboard Netlify.
+
+---
+
+## 📝 Lisensi
+
+Proyek ini dilesensikan di bawah lisensi [MIT](LICENSE).
+
+---
+
+<div align="center">
+  Dibuat presisi tanpa drama oleh <strong>Hashizumee</strong> ⚡
+</div>
