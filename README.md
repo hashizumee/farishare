@@ -9,7 +9,7 @@
   [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
   [![License](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)](LICENSE)
 
-  [Demo Aplikasi](#) • [Fitur Utama](#-fitur-unggulan) • [Panduan Lokal](#-cara-menjalankan-di-lokal) • [Panduan Deploy](#-panduan-deploy)
+  [Deskripsi](#-deskripsi-proyek) • [Fitur Utama](#-fitur-unggulan) • [Teknologi Stack](#%EF%B8%8F-teknologi--stack) • [Panduan Lokal](#-cara-menjalankan-di-lokal)
 
 </div>
 
@@ -71,21 +71,6 @@ npm run dev
 ```
 
 Buka browser Anda dan akses `http://localhost:5174/`.
-
----
-
-## 🌐 Panduan Deploy ke Publik
-
-Aplikasi ini sudah dilengkapi berkas konfigurasi `vercel.json` dan `netlify.toml` untuk mencegah error 404 SPA Routing.
-
-### Deploy ke Vercel (1-Klik)
-1. Hubungkan akun GitHub Anda ke [Vercel.com](https://vercel.com).
-2. Pilih repository `hashizumee/farishare`.
-3. Klik **Deploy**. (Vercel otomatis mendeteksi Vite).
-
-### Deploy ke Netlify
-1. Jalankan `npm run build`.
-2. Upload folder `dist/` ke dashboard Netlify.
 
 ---
 
